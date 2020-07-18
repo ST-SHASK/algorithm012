@@ -47,27 +47,20 @@ public class SwapNodesInPairs {
     }
 
     public ListNode swapPairs2(ListNode head) {
-        // 滑动  head 节点的位置。 迭代 两两交换 next 指向
-        ListNode p = new ListNode(0);
-        p.next = head;
-        ListNode prev = p;
-
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
         while (head != null && head.next != null) {
+            ListNode left = head, right = head.next;
 
-            ListNode left = head;
-            ListNode right = head.next;
-
-            // swap
-            prev.next = right;
+            prev.next = right; // new head
             left.next = right.next;
             right.next = left;
-
-            // re init
-            head = left.next;
+            // once swap List is dummy->2->1->3->4
             prev = left;
+            head = prev.next; // jump next head
         }
-
-        return p.next;
+        return dummy.next;
     }
 
 }
